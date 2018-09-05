@@ -3,4 +3,5 @@
                :redirect-uri  ""
                :scopes        "https://www.googleapis.com/auth/datastore"}
  :token       {:code ""
-               :type :type}}
+               :type :type}
+ :datastore   {:namespace :test}}
