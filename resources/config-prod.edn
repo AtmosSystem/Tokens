@@ -1,0 +1,6 @@
+{:credentials {:client-id     #env CLIENT_ID
+               :client-secret #env CLIENT_SECRET
+               :redirect-uri  #env REDIRECT_URI
+               :scopes        "https://www.googleapis.com/auth/datastore"}
+ :token       {:code #env TOKENS_DATA_ACCESS_CODE
+               :type #env TOKENS_DATA_ACCESS_CODE_TYPE}}
