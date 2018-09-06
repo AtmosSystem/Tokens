@@ -19,19 +19,11 @@
 
 (defkind token :Token)
 
-(defn- query-token
-  [entity]
-  (let [credentials (:credentials configuration)
-        access-token (:token configuration)
-        project-id (-> configuration :datastore :project-id)
-        namespace (-> configuration :datastore :namespace)]
-    (with-token credentials access-token
-                (query project-id token :filters {:Entity [= entity]}))))
-
+(load "tokens_get")
 
 (extend-type String
   ITokenProtocol
-  (get-token [entity] (query-token entity)))
+  (get-microservice-token [entity] (query-token entity)))
 
 
 

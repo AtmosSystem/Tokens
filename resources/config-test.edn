@@ -5,4 +5,4 @@
  :token       {:code ""
                :type :refresh-token}
  :datastore   {:project-id ""
-               :namespace :test}}
+               :namespace  ""}}

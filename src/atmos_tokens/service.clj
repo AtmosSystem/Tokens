@@ -1,11 +1,17 @@
 (ns atmos-tokens.service
   (:require [atmos-tokens.core :refer :all]))
 
-(require [atmos-tokens.implementation.core :refer :all])
+(require '[atmos-tokens.implementation.core :refer :all])
 
-(defn get-token*
+(defn authfn
+  [request auth-data]
+  (let [username (:username auth-data)
+        password (:password auth-data)]
+    true))
+
+(defn get-microservice-token*
   [entity]
-  (get-token entity))
+  (get-microservice-token entity))
 
 
 
