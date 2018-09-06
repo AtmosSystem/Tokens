@@ -4,4 +4,5 @@
                :scopes        "https://www.googleapis.com/auth/datastore"}
  :token       {:code #env TOKENS_DATA_ACCESS_CODE
                :type #env TOKENS_DATA_ACCESS_CODE_TYPE}
- :datastore   {:namespace DATASTORE_NAMESPACE}}
+ :datastore   {:project-id #env DATASTORE_PROJECT_ID
+               :namespace  #env DATASTORE_NAMESPACE}}

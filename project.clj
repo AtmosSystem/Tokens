@@ -6,8 +6,8 @@
   :dependencies [[org.clojure/clojure "1.8.0"]
                  [atmos-kernel "0.6.15"]
                  [clj-google "0.2.6"]
-                 [atmos-data-kernel "0.5.7"]
-                 [environ "1.1.0"]]
+                 [environ "1.1.0"]
+                 [clj-google-datastore "1.0"]]
   :plugins [[lein-ring "0.12.3"]
             [lein-environ "1.1.0"]]
   :ring {:handler atmos-tokens.api/app}
