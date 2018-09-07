@@ -3,7 +3,7 @@
 
 # Tokens
 
-[![Clojars Project](https://img.shields.io/clojars/v/atmos-kernel.svg)](https://clojars.org/atmos-tokens)
+[![Clojars Project](https://img.shields.io/clojars/v/atmos-tokens.svg)](https://clojars.org/atmos-tokens)
 
 Atmos micro service for manage tokens
 
