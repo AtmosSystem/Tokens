@@ -1,9 +1,11 @@
 (ns atmos-tokens.implementation.core
   (:require [atmos-tokens.core :refer :all]
+            [atmos-kernel.web.security.auth :refer [IAuthHandlerProtocol]]
             [environ.core :refer [env]]
             [atmos-kernel.configuration :refer [read-edn]]
-            [clj-google-datastore.core :refer :all]
-            [clj-google.auth :refer [with-token]]))
+            [clj-google-datastore.core :refer [defkind query]]
+            [clj-google.auth :refer [with-token]])
+  (:import (java.util Map)))
 
 ;-------------------------------------------------------
 ; BEGIN VARS
@@ -15,6 +17,10 @@
 ;-------------------------------------------------------
 ; END VARS
 ;-------------------------------------------------------
+
+(extend-type Map
+  IAuthHandlerProtocol
+  (get-authentication [request auth-data] false))
 
 
 (defkind token :Token)
