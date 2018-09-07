@@ -1,8 +1,0 @@
-{:credentials {:client-id     ""
-               :client-secret ""
-               :redirect-uri  ""
-               :scopes        "https://www.googleapis.com/auth/datastore"}
- :token       {:code ""
-               :type :refresh-token}
- :datastore   {:project-id ""
-               :namespace  ""}}

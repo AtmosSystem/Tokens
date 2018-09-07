@@ -1,20 +1,17 @@
-(defproject atmos-tokens "0.1.0-SNAPSHOT"
-  :description "Atmos micro service for manage atmos_tokens"
+(defproject atmos-tokens "1.0"
+  :description "Atmos micro service for manage tokens"
   :url "https://github.com/AtmosSystem/Tokens"
   :license {:name "Eclipse Public License"
             :url  "http://www.eclipse.org/legal/epl-v10.html"}
   :dependencies [[org.clojure/clojure "1.8.0"]
-                 [atmos-kernel "0.6.31"]
-                 [clj-google "0.2.6"]
-                 [environ "1.1.0"]
-                 [clj-google-datastore "1.0"]]
+                 [atmos-kernel "0.6.31"]]
   :plugins [[lein-ring "0.12.3"]
             [lein-environ "1.1.0"]]
   :ring {:handler atmos-tokens.api/app}
-  :profiles {
-             :uberjar {:aot :all
-                       :env {:resource-file "config-prod"}}
+  :profiles {:uberjar {:aot :all}
              :dev     {:dependencies [[javax.servlet/servlet-api "2.5"]
-                                      [ring/ring-mock "0.3.0"]]
-                       :env          {:resource-file "config-test"}}
-             :test    {:env {:resource-file "config-test"}}})
+                                      [ring/ring-mock "0.3.0"]]}}
+  :repositories [["releases" {:url           "https://clojars.org/repo"
+                              :username      :env/CLOJAR_USERNAME
+                              :password      :env/CLOJAR_PASSWORD
+                              :sign-releases false}]])
