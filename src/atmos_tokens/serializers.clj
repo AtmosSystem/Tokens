@@ -5,7 +5,7 @@
 
 (defrecord Token [type access-type token])
 (defrecord TokenRequest [entity type extra-data])
-(defrecord TokenValidation [token extra-data])
+(defrecord TokenValidation [token validation-type extra-data])
 
 
 (defn serialize-token
@@ -25,4 +25,5 @@
 (defn de-serialize-token-validation
   [token-validation-data]
   (mapping (->TokenValidation (de-serializer-field (get token-validation-data "token"))
+                              (de-serializer-field (get token-validation-data "validation_type"))
                               (de-serializer-field (get token-validation-data "extra_data")))))
