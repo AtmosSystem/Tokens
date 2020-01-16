@@ -22,7 +22,7 @@
                              (let [token-request-data (de-serialize (request :params) de-serialize-token-request)
                                    token-request-data (assoc token-request-data :request request)]
 
-                               (serialize (get-token token-request-data) serialize-token)))
+                               (serialize (generate-token token-request-data) serialize-token)))
 
                  (atmos-POST [token validate] request
                              (let [token-request-data (de-serialize (request :params) de-serialize-token-validation)
