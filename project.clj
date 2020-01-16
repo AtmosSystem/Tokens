@@ -1,4 +1,4 @@
-(defproject atmos-tokens "1.8"
+(defproject atmos-tokens "1.9"
   :description "Atmos micro service for manage tokens"
   :url "https://github.com/AtmosSystem/Tokens"
   :license {:name "Eclipse Public License"

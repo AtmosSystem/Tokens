@@ -19,11 +19,15 @@
                  (atmos-main-route :tokens)
 
                  (atmos-POST [token] request
-                             (let [token-request-data (keyword-map (request :params))]
-                               (serialize (get-token token-request-data) serialize-token)))
+                             (let [token-request-data (de-serialize (request :params) de-serialize-token-request)
+                                   token-request-data (assoc token-request-data :request request)]
+
+                               (serialize (generate-token token-request-data) serialize-token)))
 
                  (atmos-POST [token validate] request
-                             (let [token-request-data (de-serialize (request :params) de-serialize-token-validation)]
+                             (let [token-request-data (de-serialize (request :params) de-serialize-token-validation)
+                                   token-request-data (assoc token-request-data :request request)]
+
                                (validate-token token-request-data))))
 
 (def-json-web-api app app-routes api-defaults basic-auth)
