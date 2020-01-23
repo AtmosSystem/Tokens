@@ -10,6 +10,7 @@
             [atmos-tokens.core :refer :all]
             [atmos-tokens.serializers :refer :all]))
 
+(def tokens "tokens")
 (def token "token")
 (def validate "validate")
 
@@ -18,13 +19,13 @@
 (defatmos-routes app-routes
                  (atmos-main-route :tokens)
 
-                 (atmos-POST [token] request
+                 (atmos-POST [tokens token] request
                              (let [token-request-data (de-serialize (request :params) de-serialize-token-request)
                                    token-request-data (assoc token-request-data :request request)]
 
                                (serialize (generate-token token-request-data) serialize-token)))
 
-                 (atmos-POST [token validate] request
+                 (atmos-POST [tokens token validate] request
                              (let [token-request-data (de-serialize (request :params) de-serialize-token-validation)
                                    token-request-data (assoc token-request-data :request request)]
 
