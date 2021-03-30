@@ -1,10 +1,9 @@
 (ns atmos-tokens.api
-  (:require
-    [atmos-web-kernel-reitit.core :as web-core]
-    [clojure.tools.logging :as log]
-    [atmos-kernel.serializer.core :refer [serialize de-serialize]]
-    [atmos-tokens.core :refer :all]
-    [atmos-tokens.specs :refer :all]))
+  (:require [atmos-web-kernel-reitit.core :as web-core]
+            [clojure.tools.logging :as log]
+            [atmos-kernel.serializer.core :refer [serialize de-serialize]]
+            [atmos-tokens.core :refer :all]
+            [atmos-tokens.specs :refer :all]))
 
 (def tokens "tokens")
 (def validate "validate")
