@@ -23,8 +23,8 @@
                           :token       :token})
 
 (defn de-serialize-type
-  [token-type]
-  (-> token-type (string/replace #"_" "-") keyword))
+  [token-data]
+  (-> token-data :type (string/replace #"_" "-") keyword))
 
 ; Map to de serialize token data.
 (def de-serialize-token-map {:data-spec ::token-spec
