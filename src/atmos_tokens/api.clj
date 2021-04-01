@@ -22,7 +22,7 @@
                                    (serialize (generate-token token-request-data) serialize-token-map))
                                  (catch Exception e (handle-exception e request)))))}]
 
-             [validate
+             [(str "/" validate)
               {:post (web-core/web-request
                        (fn [{:keys [body-params] :as request}]
                          (try

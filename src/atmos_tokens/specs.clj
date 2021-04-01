@@ -10,30 +10,29 @@
 (s/def ::validation_type ::token-type)
 (s/def ::entity string?)
 (s/def ::token string?)
-(s/def ::extra_data (s/map-of keyword? any?))
+(s/def ::utr string?)
+(s/def ::extra_data (s/keys :req-un [::utr]))
 
-(s/def ::token-spec (s/keys :req-un [::type ::entity]
-                            :opt-un [::extra_data]))
+(s/def ::token-spec (s/keys :req-un [::type ::entity ::extra_data]))
 
-(s/def ::token-validation-spec (s/keys :req-un [::token ::validation_type]
-                                       :opt-un [::extra_data]))
+(s/def ::token-validation-spec (s/keys :req-un [::token ::validation_type ::extra_data]))
 
 (def serialize-token-map {:type        :type
                           :access_type :access-type
                           :token       :token})
 
 (defn de-serialize-type
-  [token-data]
-  (-> token-data :type (string/replace #"_" "-") keyword))
+  [token-data property]
+  (-> token-data property (string/replace #"_" "-") keyword))
 
 ; Map to de serialize token data.
 (def de-serialize-token-map {:data-spec ::token-spec
                              :fields    {:entity     :entity
-                                         :type       de-serialize-type
+                                         :type       #(de-serialize-type % :type)
                                          :extra-data :extra_data}})
 
 ; Map to de serialize token validation data.
 (def de-serialize-token-validation-map {:data-spec ::token-validation-spec
                                         :fields    {:token           :token
-                                                    :validation-type de-serialize-type
+                                                    :validation-type #(de-serialize-type % :validation_type)
                                                     :extra-data      :extra_data}})
