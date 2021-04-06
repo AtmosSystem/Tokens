@@ -1,34 +1,39 @@
 (ns atmos-tokens.api
-  (:require [atmos-kernel.web.ring :refer [def-json-web-api]]
-            [ring.middleware.defaults :refer [api-defaults]]
-            [atmos-kernel.web.security.auth :refer [basic-auth]]
-            [atmos-kernel.web.route :refer [defatmos-routes
-                                            atmos-main-route
-                                            atmos-POST]]
-            [atmos-kernel.core :refer [keyword-map]]
-            [atmos-kernel.serializer.core :refer :all]
+  (:require [atmos-web-kernel-reitit.core :as web-core]
+            [atmos-web-kernel-reitit.exception :refer [handle-exception]]
+            [atmos-kernel.serializer.core :refer [serialize de-serialize]]
             [atmos-tokens.core :refer :all]
-            [atmos-tokens.serializers :refer :all]))
+            [atmos-tokens.specs :refer :all]))
 
 (def tokens "tokens")
-(def token "token")
 (def validate "validate")
 
-(declare app app-routes request)
+(def routes [(str "/" tokens)
+             ["" {:options (web-core/web-request
+                             (fn [_] {:name        tokens
+                                      :description "Atmos micro service for tokens"}))
 
-(defatmos-routes app-routes
-                 (atmos-main-route :tokens)
+                  :post    (web-core/web-request
+                             (fn [{:keys [body-params] :as request}]
+                               (try
+                                 (let [token-request-data (de-serialize body-params de-serialize-token-map)
+                                       token-request-data (assoc token-request-data :request request)]
 
-                 (atmos-POST [tokens token] request
-                             (let [token-request-data (de-serialize (request :params) de-serialize-token-request)
-                                   token-request-data (assoc token-request-data :request request)]
+                                   (serialize (generate-token token-request-data) serialize-token-map))
+                                 (catch Exception e (handle-exception e request)))))}]
 
-                               (serialize (generate-token token-request-data) serialize-token)))
+             [(str "/" validate)
+              {:post (web-core/web-request
+                       (fn [{:keys [body-params] :as request}]
+                         (try
+                           (let [token-request-data (de-serialize body-params de-serialize-token-validation-map)
+                                 token-request-data (assoc token-request-data :request request)]
 
-                 (atmos-POST [tokens token validate] request
-                             (let [token-request-data (de-serialize (request :params) de-serialize-token-validation)
-                                   token-request-data (assoc token-request-data :request request)]
+                             (validate-token token-request-data))
+                           (catch Exception e (handle-exception e request)))))}]])
 
-                               (validate-token token-request-data))))
 
-(def-json-web-api app app-routes api-defaults basic-auth)
+(def app
+  (let [router (web-core/web-router routes)
+        default-handler (web-core/web-request (fn [_] "Route not found."))]
+    (web-core/ring-app router default-handler)))

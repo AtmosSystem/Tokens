@@ -1,6 +1,6 @@
-(ns atmos-tokens.core
-  (:require [atmos-kernel.protocol :refer [defatmos-record-protocol]]))
+(ns atmos-tokens.core)
 
-(declare ITokenProtocol generate-token validate-token)
+(defprotocol ITokenProtocol
+  (generate-token [data])
+  (validate-token [data]))
 
-(defatmos-record-protocol :Token '[generate-token validate-token])
